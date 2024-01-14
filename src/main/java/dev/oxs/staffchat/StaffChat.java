@@ -24,7 +24,7 @@ public class StaffChat extends JavaPlugin implements Listener {
     public void StaffChatMessage(String sender, String message) {
         for (Player onlinePlayer : getServer().getOnlinePlayers()) {
             if (onlinePlayer.hasPermission("staffchat.see") || onlinePlayer.isOp()) {
-                onlinePlayer.sendMessage(ChatColor.RED + "[StaffChat] " + ChatColor.WHITE + sender + ": " + ChatColor.WHITE + message);
+                onlinePlayer.sendMessage(ChatColor.RED + "[StaffChat] " + ChatColor.WHITE + sender + ": " + ChatColor.WHITE + message.replace("&", "\u00a7"));
             }
         }
     }
