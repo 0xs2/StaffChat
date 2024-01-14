@@ -21,7 +21,7 @@ permissions:
   staffchat.menu:
     description: Show the Staff Chat menu
     default: op
-  staffchat.usage:
+  staffchat.use:
     description: Use the Staff Chat command
     default: op
   staffchat.see:
