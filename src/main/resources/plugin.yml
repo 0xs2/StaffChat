@@ -1,7 +1,7 @@
 name: StaffChat
 description: Staff Chat beta plugin
 main: dev.oxs.staffchat.StaffChat
-version: 1.0.0
+version: 1.5.0
 authors:
   - oxs
 depend: []
@@ -15,15 +15,22 @@ commands:
     description: Use the StaffChat
     usage: /staffchat
     aliases: ["sc", "staffc"]
+  StaffChatToggle:
+    description: Use the StaffChat
+    usage: /staffchattoggle
+    aliases: ["sct", "staffct"]
 
 
 permissions:
   staffchat.menu:
     description: Show the Staff Chat menu
     default: op
-  staffchat.use:
+  staffchat.usage:
     description: Use the Staff Chat command
     default: op
   staffchat.see:
     description: See the Staff Chat
+    default: op
+  staffchat.toggle:
+    description: Toggle the Staff Chat
     default: op
