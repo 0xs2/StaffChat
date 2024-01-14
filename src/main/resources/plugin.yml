@@ -1,7 +1,7 @@
 name: StaffChat
 description: Staff Chat beta plugin
 main: dev.oxs.staffchat.StaffChat
-version: 1.5.0
+version: 1.5.1
 authors:
   - oxs
 depend: []
