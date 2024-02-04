@@ -4,6 +4,24 @@ this plugin is just dead simple, straight to the point. does staffchat and nothi
 
 <img src="https://i.imgur.com/FoOl2gQ.png" width="500px">
 
+### settings.yml
+
+```yml
+settings:
+    staffchat-prefix: '&c[StaffChat]&f'
+    staffchat-toggle-alert: true
+    staffchat-use-displayNamesStaffChat: false
+    staffchat-use-displayNamesPublicChat: true
+    staffchat-publicChatPrefix: '&f<%player%&f> '
+config-version: 1
+```
+
+- Staff chat prefix, should be obvious
+- Toggle alert, this sends the player a message letting them know staff chat is toggled upon joining.
+- 'displayNamesStaffChat' - if you want any custom display name you have set or just their raw username displayed
+- 'displayNamesPublicChat' - same thing.
+- Public chat prefix, ideally you want to make this match the thing you have on your server.
+
 ### commands
 - `/staffchat`, `/sc` - type in the staff chat
 - `/staffchattoggle`, `/sct` - toggle the staff chat on/off
