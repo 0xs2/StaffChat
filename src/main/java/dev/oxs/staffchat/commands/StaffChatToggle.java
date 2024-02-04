@@ -1,5 +1,6 @@
 package dev.oxs.staffchat.commands;
 
+import dev.oxs.staffchat.StaffChat;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,10 +15,11 @@ import static org.bukkit.Bukkit.getPlayer;
 public class StaffChatToggle implements CommandExecutor {
     private final HashMap<UUID, Boolean> staffChatToggled;
 
-    private final Plugin plugin;
+    private final StaffChat plugin;
 
     public StaffChatToggle(Plugin plugin, HashMap<UUID, Boolean> staffChatToggled) {
-        this.plugin = plugin;
+
+        this.plugin = (StaffChat) plugin;
         this.staffChatToggled = staffChatToggled;
 
     }
@@ -27,7 +29,9 @@ public class StaffChatToggle implements CommandExecutor {
         Player p = getPlayer(commandSender.getName());
 
         if (!(commandSender.hasPermission("staffchat.toggle") || commandSender.isOp())) {
-            commandSender.sendMessage(ChatColor.RED + "No permission.");
+
+            String message = plugin.getLanguage().getMessage("no_permission");
+            commandSender.sendMessage(message);
             return true;
         }
 
@@ -38,7 +42,9 @@ public class StaffChatToggle implements CommandExecutor {
         boolean toggleStatus = !staffChatToggled.get(p.getUniqueId());
         staffChatToggled.put(p.getUniqueId(), toggleStatus);
 
-        commandSender.sendMessage(ChatColor.GRAY + "StaffChat been toggled " + (toggleStatus ? ChatColor.GREEN + "on" : ChatColor.RED +"off"));
+        String message = plugin.getLanguage().getMessage("staffchat_toggle");
+        message = message.replace("%status%", (toggleStatus ? ChatColor.GREEN + "on" : ChatColor.RED +"off"));
+        commandSender.sendMessage(message);
         return true;
     }
 

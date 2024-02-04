@@ -1,25 +1,36 @@
 name: StaffChat
 description: Staff Chat beta plugin
 main: dev.oxs.staffchat.StaffChat
-version: 1.5.1r2
+version: 2.0.0
 authors:
   - oxs
-depend: []
+depend: [ ]
 
 commands:
   StaffChatCommand:
     description: Shows plugin information
     usage: /staffchatmenu
-    aliases: ["scmenu","scm"]
+    aliases: [ "scmenu","scm" ]
   StaffChatUsage:
     description: Use the StaffChat
     usage: /staffchat
-    aliases: ["sc", "staffc"]
+    aliases: [ "sc", "staffc" ]
+  StaffChatPublic:
+    description: Use the Public Chat
+    usage: /publicchat
+    aliases: [ "scp", "pc"]
+  StaffChatCheck:
+    description: Check is staff chat toggled for you or a fellow staff member
+    usage: /staffchatcheck
+    aliases: [ "scc" ]
   StaffChatToggle:
     description: Use the StaffChat
     usage: /staffchattoggle
-    aliases: ["sct", "staffct"]
+    aliases: [ "sct", "staffct" ]
 
+config:
+  joinMessage: true
+  prefix: "&c[&eStaffChat&c]"
 
 permissions:
   staffchat.menu:
@@ -33,4 +44,10 @@ permissions:
     default: op
   staffchat.toggle:
     description: Toggle the Staff Chat
+    default: op
+  staffchat.public:
+    description: Send message to the public chat when sc is active
+    default: op
+  staffchat.check:
+    description: Check if a staff or you have the staff chat toggled or not.
     default: op

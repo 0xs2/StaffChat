@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 public class StaffChatUsage implements CommandExecutor {
@@ -18,14 +19,26 @@ public class StaffChatUsage implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (!(commandSender.hasPermission("staffchat.use") || commandSender.isOp())) {
-            commandSender.sendMessage(ChatColor.RED + "No permission.");
+            String message = plugin.getLanguage().getMessage("no_permission");
+            commandSender.sendMessage(message);
             return true;
         }
+
         if (strings.length > 0) {
             String message = String.join(" ", strings);
-            plugin.StaffChatMessage(commandSender.getName(), message);
+            Player player = (Player) commandSender;
+            Boolean t = plugin.getToggleStatus(player.getUniqueId());
+
+            if(t) {
+                plugin.PublicChatMessage(player, message);
+            }
+            else {
+                plugin.StaffChatMessage(player, message);
+            }
+
         } else {
-            commandSender.sendMessage(ChatColor.RED + "Usage: /sc <message>");
+            String message = plugin.getLanguage().getMessage("staffchat_usage");
+            commandSender.sendMessage(message);
             return true;
         }
         return true;
