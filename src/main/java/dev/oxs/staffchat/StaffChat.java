@@ -3,8 +3,10 @@ package dev.oxs.staffchat;
 import dev.oxs.staffchat.commands.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -68,13 +70,28 @@ public class StaffChat extends JavaPlugin implements Listener {
     }
 
     public void PublicChatMessage(Player sender, String message) {
-        for (Player onlinePlayer : getServer().getOnlinePlayers()) {
+//        for (Player onlinePlayer : getServer().getOnlinePlayers()) {
+//
+//            String playerPrefix = StaffChatSettings.getInstance(plugin).getConfigString("settings.staffchat-publicChatPrefix");
+//            Boolean useDisplay = StaffChatSettings.getInstance(plugin).getConfigBoolean("settings.staffchat-use-displayNamesPublicChat");
+//
+//            String replacedString = playerPrefix.replace("%player%", (useDisplay ? sender.getDisplayName() : sender.getName()));
+//            onlinePlayer.sendMessage(plugin.printColours(replacedString) + ChatColor.WHITE + plugin.printColours(message));
+//        }
 
-            String playerPrefix = StaffChatSettings.getInstance(plugin).getConfigString("settings.staffchat-publicChatPrefix");
-            Boolean useDisplay = StaffChatSettings.getInstance(plugin).getConfigBoolean("settings.staffchat-use-displayNamesPublicChat");
+        // Send public chat message the same way as the server does
 
-            String replacedString = playerPrefix.replace("%player%", (useDisplay ? sender.getDisplayName() : sender.getName()));
-            onlinePlayer.sendMessage(plugin.printColours(replacedString) + ChatColor.WHITE + plugin.printColours(message));
+        PlayerChatEvent event = new PlayerChatEvent(sender, message);
+        Bukkit.getPluginManager().callEvent(event);
+
+        if(event.isCancelled()) {
+            return;
+        }
+
+        String formattedMessage = String.format(event.getFormat(), event.getPlayer().getDisplayName(), event.getMessage());
+        ((CraftServer) Bukkit.getServer()).getServer().console.sendMessage(formattedMessage); // Log to console
+        for (Player recipient : event.getRecipients()) {
+            recipient.sendMessage(formattedMessage);
         }
     }
 
